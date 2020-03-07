@@ -64,29 +64,26 @@ public class AdminUser {
 
     public void cargarArchivo() {
 
-        if (archivo.exists()) {
-            SimpleDateFormat time = new SimpleDateFormat("EEEE MMM dd HH: ss zz yyyy");
-            String[] array;
+        SimpleDateFormat time = new SimpleDateFormat("EEEE MMM dd HH: ss zz yyyy");
+        String[] array;
 
-            try {
-                String cadena;
+        try {
+            String cadena;
 
-                FileReader f = new FileReader(archivo);
-                BufferedReader b = new BufferedReader(f);
-                while ((cadena = b.readLine()) != null) {
-                    array = cadena.split(";");
-                    Date fecha;
-                    String algo;
-                    algo = array[3];
-                    fecha = time.parse(algo);
-                    lista.add(new User(array[0], array[1], array[2], fecha));
-                }
-                b.close();
-                f.close();
-            } catch (Exception e) {
+            FileReader f = new FileReader(archivo);
+            BufferedReader b = new BufferedReader(f);
+            while ((cadena = b.readLine()) != null) {
+                array = cadena.split(";");
+                Date fecha;
+                String algo;
+                algo = array[3];
+                fecha = time.parse(algo);
+                lista.add(new User(array[0], array[1], array[2], fecha));
             }
-
+            b.close();
+            f.close();
+        } catch (Exception e) {
         }
-    }
 
+    }
 }

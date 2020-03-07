@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class Chat extends javax.swing.JFrame {
-
+    
     public Chat() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -25,6 +25,16 @@ public class Chat extends javax.swing.JFrame {
 
         Chat = new javax.swing.JDialog();
         jPanel3 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        ta_chat_robot = new javax.swing.JTextArea();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        ta_mensaje_usuario = new javax.swing.JTextArea();
+        jLabel9 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTextArea3 = new javax.swing.JTextArea();
+        jLabel10 = new javax.swing.JLabel();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
         Registro = new javax.swing.JDialog();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -49,15 +59,80 @@ public class Chat extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(0, 102, 153));
 
+        ta_chat_robot.setEditable(false);
+        ta_chat_robot.setColumns(20);
+        ta_chat_robot.setRows(5);
+        jScrollPane2.setViewportView(ta_chat_robot);
+
+        ta_mensaje_usuario.setColumns(20);
+        ta_mensaje_usuario.setRows(5);
+        jScrollPane3.setViewportView(ta_mensaje_usuario);
+
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel9.setText("Conversacion");
+
+        jTextArea3.setEditable(false);
+        jTextArea3.setColumns(20);
+        jTextArea3.setRows(5);
+        jScrollPane4.setViewportView(jTextArea3);
+
+        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel10.setText("Contactos");
+
+        jButton5.setText("Send");
+        jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton5MouseClicked(evt);
+            }
+        });
+
+        jButton6.setText("Regresar");
+        jButton6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton6MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2))
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 500, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel10))
+                .addGap(5, 5, 5)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 370, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE))
+                    .addComponent(jScrollPane3))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout ChatLayout = new javax.swing.GroupLayout(Chat.getContentPane());
@@ -278,27 +353,24 @@ public class Chat extends javax.swing.JFrame {
         // TODO add your handling code here:
         boolean confirmar = false;
         AdminUser au = new AdminUser();
+        au.cargarArchivo();
         if (au.getLista().size() < 0 || tf_user.getText().equals("") || pf_pass.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "No hay usuario o no tiene nada ingresado");
         } else {
-            for (int i = 0; i < au.getLista().size(); i++) {
-                if (au.getLista().get(i).getUsuario().equals(tf_user.getText()) && au.getLista().get(i).getPassword().equals(pf_pass.getText())) {
-                    confirmar = true;
-                    Chat.setSize(600, 500);
-                    Chat.setLocationRelativeTo(null);
-                    Chat.setVisible(true);
-                    this.dispose();
-                    tf_user.setText("");
-                    pf_pass.setText("");
-                }
-            }
-
+            confirmar = true;
+            Chat.setSize(700, 600);
+            Chat.setLocationRelativeTo(null);
+            Chat.setVisible(true);
+            this.dispose();
+            tf_user.setText("");
+            pf_pass.setText("");
+            
             if (!confirmar) {
                 JOptionPane.showMessageDialog(this, "Usuario o Contraseña incorrecta");
                 tf_user.setText("");
                 pf_pass.setText("");
             }
-
+            
         }
     }//GEN-LAST:event_jButton1MouseClicked
 
@@ -353,11 +425,38 @@ public class Chat extends javax.swing.JFrame {
                 dc_fecha.setDate(new Date());
                 JOptionPane.showMessageDialog(Registro, "Usuario creado");
             }
-
+            
         }
-
+        
 
     }//GEN-LAST:event_jButton3MouseClicked
+
+    private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
+        // TODO add your handling code here:
+        String mensaje = ta_mensaje_usuario.getText();
+        if (mensaje.endsWith("1")) {
+            String[] array = mensaje.split(" ");
+            
+            for (int i = 0; i < array.length; i++) {
+                if (array[i].length() < 3) {
+                    desordenado(array[i]);
+                    array[i] = array[i] + "way";
+                }
+            }
+            ta_mensaje_usuario.setText("");
+        } else if (mensaje.endsWith("2")) {
+            
+            System.out.println("holas");
+        }
+
+    }//GEN-LAST:event_jButton5MouseClicked
+
+    private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
+        // TODO add your handling code here:
+        Chat.dispose();
+        this.setVisible(true);
+        ta_mensaje_usuario.setText("");
+    }//GEN-LAST:event_jButton6MouseClicked
 
     /**
      * @param args the command line arguments
@@ -393,6 +492,24 @@ public class Chat extends javax.swing.JFrame {
             }
         });
     }
+    
+    public static String desordenado(String s) {
+        char p = ' ';
+        for (int i = 0; i < s.length(); i++) {
+            p = s.charAt(i);
+            s.charAt(i+1) = s.charAt(i);
+           
+        }
+        
+        return s;
+    }
+    
+    public static String ASCII(String s){
+        char palabra = ' '; 
+        for (int i = 0; i < s.length(); i++) {
+            s.charAt(i) += palabra;
+        }
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -403,7 +520,10 @@ public class Chat extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -411,10 +531,17 @@ public class Chat extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTextArea jTextArea3;
     private javax.swing.JPasswordField pf_pass;
+    private javax.swing.JTextArea ta_chat_robot;
+    private javax.swing.JTextArea ta_mensaje_usuario;
     private javax.swing.JTextField tf_nombre;
     private javax.swing.JTextField tf_registro_usuario;
     private javax.swing.JTextField tf_user;
