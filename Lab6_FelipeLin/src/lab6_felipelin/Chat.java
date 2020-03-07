@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class Chat extends javax.swing.JFrame {
-    
+
     public Chat() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -364,13 +364,13 @@ public class Chat extends javax.swing.JFrame {
             this.dispose();
             tf_user.setText("");
             pf_pass.setText("");
-            
+
             if (!confirmar) {
                 JOptionPane.showMessageDialog(this, "Usuario o Contraseña incorrecta");
                 tf_user.setText("");
                 pf_pass.setText("");
             }
-            
+
         }
     }//GEN-LAST:event_jButton1MouseClicked
 
@@ -425,28 +425,27 @@ public class Chat extends javax.swing.JFrame {
                 dc_fecha.setDate(new Date());
                 JOptionPane.showMessageDialog(Registro, "Usuario creado");
             }
-            
+
         }
-        
+
 
     }//GEN-LAST:event_jButton3MouseClicked
 
     private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
         // TODO add your handling code here:
+        JOptionPane.showMessageDialog(Chat, "No lo hice :(");
         String mensaje = ta_mensaje_usuario.getText();
         if (mensaje.endsWith("1")) {
             String[] array = mensaje.split(" ");
-            
+
             for (int i = 0; i < array.length; i++) {
                 if (array[i].length() < 3) {
-                    desordenado(array[i]);
                     array[i] = array[i] + "way";
                 }
             }
             ta_mensaje_usuario.setText("");
         } else if (mensaje.endsWith("2")) {
-            
-            System.out.println("holas");
+
         }
 
     }//GEN-LAST:event_jButton5MouseClicked
@@ -491,24 +490,6 @@ public class Chat extends javax.swing.JFrame {
                 new Chat().setVisible(true);
             }
         });
-    }
-    
-    public static String desordenado(String s) {
-        char p = ' ';
-        for (int i = 0; i < s.length(); i++) {
-            p = s.charAt(i);
-            s.charAt(i+1) = s.charAt(i);
-           
-        }
-        
-        return s;
-    }
-    
-    public static String ASCII(String s){
-        char palabra = ' '; 
-        for (int i = 0; i < s.length(); i++) {
-            s.charAt(i) += palabra;
-        }
     }
 
 
